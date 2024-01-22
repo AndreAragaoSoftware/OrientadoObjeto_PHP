@@ -8,5 +8,11 @@ $primeraConta->deposita(500);
 $primeraConta->saca(300); // isso é ok
 
 
-echo $primeraConta->recuperaSaldo();
-echo $primeraConta->recuperaCpfTitular();
+echo $primeraConta->recuperaSaldo() . PHP_EOL;
+echo $primeraConta->recuperaCpfTitular() . PHP_EOL;
+echo $primeraConta->recuperaNomeTitular(). PHP_EOL;
+
+$segundaConta = new Conta('987.654.321-10', 'Paloma Ribeiro');
+var_dump($segundaConta);
+
+echo Conta::recuperaNumeroDeConta();
