@@ -1,6 +1,9 @@
 <?php 
 
-namespace Modelo\Conta;
+namespace Alura\Banco\Modelo\Conta;
+use Alura\Banco\Modelo\Pessoa;
+use Alura\Banco\Modelo\Cpf;
+use Alura\Banco\Modelo\Endereco;
 
 //Chamando a class Pessoa 
 class Titular extends Pessoa {
