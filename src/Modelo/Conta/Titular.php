@@ -1,5 +1,7 @@
 <?php 
 
+namespace Modelo\Conta;
+
 //Chamando a class Pessoa 
 class Titular extends Pessoa {
 
