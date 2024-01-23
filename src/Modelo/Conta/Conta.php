@@ -8,10 +8,13 @@ class Conta
     private  $titular;
     private float $saldo;
     private static  $numeroDeContas = 0;
+    private int $tipo;
+    // se $tipo == 1 Conta Corrente; 2 = Poupança
 
-    public function __construct(Titular $titular){
+    public function __construct(Titular $titular, $tipo){
         $this->titular = $titular; 
         $this->saldo = 0;
+        $this->tipo = $tipo;
 
         self::$numeroDeContas++;
     }
@@ -21,17 +24,28 @@ class Conta
     }
 
     public function saca(float $valorASacar): void
-    {
-        if ($valorASacar > $this->saldo) {
+    {   
+        
+        // tarifa de Saque depende do tipo
+        if($this->tipo === 1){
+            $tarifaSaque = $valorASacar *0.05;
+        } else {
+            $tarifaSaque = $valorASacar *0.03;
+        }
+        
+        $valorSaque = $valorASacar + $tarifaSaque;
+        //Verificando se tem saldo suficiente
+        if ($valorSaque > $this->saldo) {
             echo "Saldo indisponível";
             return;
         }
-
-        $this->saldo -= $valorASacar;
+        // Saque
+        $this->saldo -= $valorSaque;
     }
 
     public function deposita(float $valorADepositar): void
     {
+        // teste valor a depositar maior que 0
         if ($valorADepositar < 0) {
             echo "Valor precisa ser positivo";
             return;
