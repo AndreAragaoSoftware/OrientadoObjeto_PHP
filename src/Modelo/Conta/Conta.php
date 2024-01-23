@@ -6,15 +6,13 @@ use Alura\Banco\Modelo\Conta\Titular;
 class Conta
 {
     private  $titular;
-    private float $saldo;
+    protected float $saldo;
     private static  $numeroDeContas = 0;
-    private int $tipo;
-    // se $tipo == 1 Conta Corrente; 2 = Poupança
 
-    public function __construct(Titular $titular, $tipo){
+
+    public function __construct(Titular $titular){
         $this->titular = $titular; 
         $this->saldo = 0;
-        $this->tipo = $tipo;
 
         self::$numeroDeContas++;
     }
@@ -26,13 +24,8 @@ class Conta
     public function saca(float $valorASacar): void
     {   
         
-        // tarifa de Saque depende do tipo
-        if($this->tipo === 1){
-            $tarifaSaque = $valorASacar *0.05;
-        } else {
-            $tarifaSaque = $valorASacar *0.03;
-        }
-        
+        // tarifa de Saque
+        $tarifaSaque = $valorASacar *0.05;
         $valorSaque = $valorASacar + $tarifaSaque;
         //Verificando se tem saldo suficiente
         if ($valorSaque > $this->saldo) {
