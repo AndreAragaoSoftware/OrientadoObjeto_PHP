@@ -3,29 +3,29 @@
 namespace Alura\Banco\Modelo\Conta;
 use Alura\Banco\Modelo\Conta\Titular;
 
-class Conta
+abstract class Conta
 {
     private  $titular;
     protected float $saldo;
     private static  $numeroDeContas = 0;
 
 
-    public function __construct(Titular $titular){
+    public function __construct(Titular $titular) {
         $this->titular = $titular; 
         $this->saldo = 0;
 
         self::$numeroDeContas++;
     }
 
-    public function __destruct(){
+    public function __destruct() {
         
     }
 
     public function saca(float $valorASacar): void
     {   
         
-        // tarifa de Saque
-        $tarifaSaque = $valorASacar *0.05;
+        // tarifa de Saque 
+        $tarifaSaque = $valorASacar * $this->percentualTarifa();
         $valorSaque = $valorASacar + $tarifaSaque;
         //Verificando se tem saldo suficiente
         if ($valorSaque > $this->saldo) {
@@ -47,16 +47,6 @@ class Conta
         $this->saldo += $valorADepositar;
     }
 
-    public function transfere(float $valorATransferir, Conta $contaDestino): void
-    {
-        if ($valorATransferir > $this->saldo) {
-            echo "Saldo indisponível";
-            return;
-        }
-
-        $this->saca($valorATransferir);
-        $contaDestino->deposita($valorATransferir);
-    }
 
     public function recuperaSaldo(): float
     {
@@ -76,4 +66,8 @@ class Conta
     public static function recuperaNumeroDeConta(): int{
         return self::$numeroDeContas;
     }
+
+    // O metodo abstract obriga que toda  class que extender a Conta tenha esse metodo
+    abstract protected function percentualTarifa(): float;
+
 }
