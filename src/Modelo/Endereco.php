@@ -36,6 +36,11 @@ class Endereco {
     {
         return $this->numero;
     }
+
+    // Esse metodo imterpreta o objeto como uma instring
+    public function __toString(): string {
+        return "{$this->rua}, {$this->numero}, {$this->bairro}, {$this->cidade}";
+    }
     
 }
 
